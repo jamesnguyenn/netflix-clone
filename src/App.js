@@ -7,12 +7,7 @@ import { useState } from "react";
 import movieTrailer from "movie-trailer";
 import Modal from "./Modal/Modal";
 import Footer from "./Footer";
-import axios from "./axios";
-console.log(
-  axios.get(
-    "/discover/tv/?api_key=0485495faa4cd8869fabf9998fc6f049&with_networks=213"
-  )
-);
+
 function App() {
   const [trailerUrl, setTrailerUrl] = useState("");
   const opts = {

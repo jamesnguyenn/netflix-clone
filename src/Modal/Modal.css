@@ -9,7 +9,8 @@
   align-items: center;
   justify-content: center;
   padding: "30px";
-  transition: all 0.25s ease-in;
+  transition-timing-function: ease-in;
+  transition: all 0.5s;
 }
 
 @media screen and (max-width: 1023px) {
