@@ -5,11 +5,13 @@ import LoginPage from './pages/LoginPage';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebaseConfig';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from './redux/reducers/userReducer';
+import * as selectors from './redux/selectors';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
-    const user = null;
+    const user = useSelector(selectors.selectUser);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,11 +26,11 @@ function App() {
                 );
             } else {
                 //Logged Out
-                dispatch(logout);
+                dispatch(logout());
             }
         });
         return unsubscribe;
-    }, []);
+    }, [dispatch]);
     return (
         <div className="App">
             <Router>
@@ -36,6 +38,7 @@ function App() {
                     <LoginPage />
                 ) : (
                     <Routes>
+                        <Route path="/profile" element={<ProfilePage />} />
                         <Route exact path="/" element={<HomePage />} />
                     </Routes>
                 )}

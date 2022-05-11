@@ -1,19 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Nav.css';
 function Nav() {
     const [show, handleShow] = useState(false);
+    const navigate = useNavigate();
+
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                handleShow(true);
-            } else {
-                handleShow(false);
-            }
-        });
+        window.addEventListener('scroll', handleScrollNav);
         return () => {
-            window.removeEventListener('scroll');
+            window.removeEventListener('scroll', handleScrollNav);
         };
     }, []);
+
+    const handleScrollNav = () => {
+        if (window.scrollY > 100) {
+            handleShow(true);
+        } else {
+            handleShow(false);
+        }
+    };
+
+    const backToTop = useCallback(() => {
+        document.documentElement.scrollTop = 0;
+        navigate('/');
+    }, [navigate]);
 
     return (
         <div className={`nav ${show && 'nav__black'}`}>
@@ -21,11 +31,15 @@ function Nav() {
                 className="nav__logo"
                 src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
                 alt="Netflix Logo"
+                onClick={backToTop}
             />
             <img
                 className="nav__avatar"
-                src="https://avatars.githubusercontent.com/u/66525324?s=400&u=67f92e1f5910eb2729f1e97297a5292752925797&v=4"
+                src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
                 alt="Avatar"
+                onClick={() => {
+                    navigate('/profile');
+                }}
             />
         </div>
     );

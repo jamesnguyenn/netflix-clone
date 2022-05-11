@@ -30,7 +30,10 @@ function Row({ title, fetchURL, isLargeRow, onClick }) {
                 <div className="row__posters">
                     {movies.map((movie) => {
                         return (
-                            <SwiperSlide className="row__slide__item">
+                            <SwiperSlide
+                                className="row__slide__item"
+                                key={movie.id}
+                            >
                                 <img
                                     onClick={() => onClick(movie)}
                                     className={`row__poster ${
