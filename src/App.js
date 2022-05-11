@@ -1,96 +1,47 @@
-import "./App.css";
-import requests from "./request";
-import Nav from "./Nav/Nav";
-import Banner from "./Banner/Banner";
-import Row from "./Row/Row";
-import { useState } from "react";
-import movieTrailer from "movie-trailer";
-import Modal from "./Modal/Modal";
-import Footer from "./Footer";
+import './App.css';
+import HomePage from './pages/HomePage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebaseConfig';
+import { useDispatch } from 'react-redux';
+import { login, logout } from './redux/reducers/userReducer';
 
 function App() {
-  const [trailerUrl, setTrailerUrl] = useState("");
-  const opts = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-    },
-  };
-  function handleClick(movie) {
-    if (trailerUrl) {
-      setTrailerUrl("");
-    } else {
-      movieTrailer(movie?.name || movie?.title || "")
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
-        })
-        .catch((error) => console.log(error));
-    }
-  }
-  function handleModalClick() {
-    document.body.addEventListener("click", (e) => {
-      if (e.target.matches(".modal")) {
-        setTrailerUrl("");
-        return () => {
-          document.body.removeEventListener("click");
-        };
-      }
-    });
-  }
-  return (
-    <div className="App">
-      <Nav />
-      <Banner />
-      <Row
-        title="NETFLIX ORIGINALS"
-        fetchURL={requests.fetchNetflixOriginals}
-        isLargeRow
-        onClick={handleClick}
-      />
-      <Row
-        title="Trending Now"
-        fetchURL={requests.fetchTrending}
-        onClick={handleClick}
-      />
-      <Row
-        title="Top Rated"
-        fetchURL={requests.fetchTopRated}
-        onClick={handleClick}
-      />
-      <Row
-        title="Action Movies"
-        fetchURL={requests.fetchActionMovies}
-        onClick={handleClick}
-      />
-      <Row
-        title="Comedy Movies"
-        fetchURL={requests.fetchComedyMovies}
-        onClick={handleClick}
-      />
-      <Row
-        title="Horror Movies"
-        fetchURL={requests.fetchHorrorMovies}
-        onClick={handleClick}
-      />
-      <Row
-        title="Romance Movies"
-        fetchURL={requests.fetchRomanceMovies}
-        onClick={handleClick}
-      />
-      <Row
-        title="Documentaries"
-        fetchURL={requests.fetchDocumentaries}
-        onClick={handleClick}
-      />
-      {trailerUrl && (
-        <Modal onclick={handleModalClick} opts={opts} trailerUrl={trailerUrl} />
-      )}
-      <Footer></Footer>
-    </div>
-  );
+    const user = null;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+            if (userAuth) {
+                //Logged In
+                dispatch(
+                    login({
+                        uid: userAuth.uid,
+                        email: userAuth.email,
+                    })
+                );
+            } else {
+                //Logged Out
+                dispatch(logout);
+            }
+        });
+        return unsubscribe;
+    }, []);
+    return (
+        <div className="App">
+            <Router>
+                {!user ? (
+                    <LoginPage />
+                ) : (
+                    <Routes>
+                        <Route exact path="/" element={<HomePage />} />
+                    </Routes>
+                )}
+            </Router>
+        </div>
+    );
 }
 
 export default App;
