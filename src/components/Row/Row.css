@@ -2,6 +2,9 @@
     color: #fff;
     margin-left: 20px;
 }
+.row > h2 {
+    margin: 20px 0;
+}
 .row__posters {
     display: flex;
     overflow-y: hidden;
@@ -33,4 +36,40 @@
 }
 .row__posterLarge:hover {
     transform: scale(1.09);
+}
+
+.placeholder {
+    position: relative;
+    background: rgb(42, 42, 42);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.placeholder:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100px;
+    left: -100px;
+    top: 0;
+    background: linear-gradient(to right, transparent, #b3b3b370, transparent);
+    animation: reflect 800ms ease-out infinite;
+}
+
+.large {
+    width: 100%;
+    min-height: 250px;
+    margin-bottom: 10px;
+}
+
+.normal {
+    width: 100%;
+    min-height: 170px;
+}
+
+@keyframes reflect {
+    to {
+        left: calc(100% + 100px);
+    }
 }

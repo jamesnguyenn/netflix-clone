@@ -4,9 +4,11 @@ import './ProfilePage.css';
 import * as selectors from '../../redux/selectors';
 import { useSelector } from 'react-redux';
 import { auth } from '../../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 function ProfilePage() {
     const user = useSelector(selectors.selectUser);
+    const navigate = useNavigate();
 
     return (
         <div className="profilePage">
@@ -22,6 +24,12 @@ function ProfilePage() {
                         <h2>{user.email}</h2>
                         <div className="profilePage__plans">
                             <h3>Plans</h3>
+                            <button
+                                onClick={() => navigate('/')}
+                                className="profilePage__backToHome"
+                            >
+                                Back to Home
+                            </button>
                             <button
                                 onClick={() => auth.signOut()}
                                 className="profilePage__signOut"

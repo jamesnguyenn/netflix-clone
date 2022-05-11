@@ -36,16 +36,24 @@
     height: 100px;
 }
 
-.profilePage__signOut {
+.profilePage__signOut,
+.profilePage__backToHome {
     padding: 10px 20px;
     font-size: 1rem;
-    margin-top: 5%;
     width: 100%;
     color: #fff;
-    background-color: #e50914;
     font-weight: 600;
     border: nones;
     cursor: pointer;
+}
+
+.profilePage__signOut {
+    background-color: #e50914;
+    margin-top: 10px;
+}
+.profilePage__backToHome {
+    margin-top: 5%;
+    background-color: gray;
 }
 .profilePage__plans {
     margin-top: 20px;
