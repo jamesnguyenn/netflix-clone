@@ -5,6 +5,7 @@ import * as selectors from '../../redux/selectors';
 import { useSelector } from 'react-redux';
 import { auth } from '../../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import PlansScreen from '../PlansScreen';
 
 function ProfilePage() {
     const user = useSelector(selectors.selectUser);
@@ -24,6 +25,7 @@ function ProfilePage() {
                         <h2>{user.email}</h2>
                         <div className="profilePage__plans">
                             <h3>Plans</h3>
+                            <PlansScreen />
                             <button
                                 onClick={() => navigate('/')}
                                 className="profilePage__backToHome"

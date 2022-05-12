@@ -72,7 +72,10 @@ function SignUpScreen() {
             <form onSubmit={handleSubmit(signIn)}>
                 <h1>Sign In</h1>
                 <span style={{ textAlign: 'left' }}>
-                    email: admin@gmail.com
+                    Email Test: admin@gmail.com
+                </span>
+                <span style={{ textAlign: 'left' }}>
+                    Password Test: Abcabc@1
                 </span>
                 <input
                     // ref={emailRef}
@@ -85,7 +88,7 @@ function SignUpScreen() {
                         {errors?.email?.message}
                     </div>
                 )}
-                <span style={{ textAlign: 'left' }}>password: Abcabc@1</span>
+
                 <input
                     // ref={passwordRef}
                     type="password"
