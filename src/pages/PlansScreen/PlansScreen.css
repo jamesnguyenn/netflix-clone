@@ -21,6 +21,7 @@
 }
 .plansScreen__plan--disabled > button {
     background-color: gray !important;
+    cursor: auto;
 }
 .plansScreen__plan--disabled {
     opacity: 1 !important;
