@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import SignUpScreen from '../SignUpScreen';
 import './LoginPage.css';
 
@@ -48,6 +49,7 @@ function LoginPage() {
                         </div>
                     </>
                 )}
+                <ToastContainer />
             </div>
         </div>
     );

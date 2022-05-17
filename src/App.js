@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from './redux/reducers/userReducer';
 import * as selectors from './redux/selectors';
 import ProfilePage from './pages/ProfilePage';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
     const user = useSelector(selectors.selectUser);
@@ -40,6 +41,7 @@ function App() {
                     <Routes>
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route exact path="/" element={<HomePage />} />
+                        <Route exact path="*" element={<PageNotFound />} />
                     </Routes>
                 )}
             </Router>

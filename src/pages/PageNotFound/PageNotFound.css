@@ -1,0 +1,28 @@
+.pageNotFound {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageNotFound__body {
+    color: #fff;
+    padding: 0 30px;
+}
+
+.pageNotFound__body > h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.pageNotFound__body > button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #e50914;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}

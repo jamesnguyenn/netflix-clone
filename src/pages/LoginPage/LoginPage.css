@@ -13,12 +13,12 @@
     object-fit: contain;
     margin-left: 20px;
     margin-top: 20px;
-    z-index: 10;
+    z-index: 1;
 }
 
 .loginPage__button {
     position: fixed;
-    z-index: 10;
+    z-index: 1;
     right: 0;
     margin-right: 20px;
     margin-top: 20px;

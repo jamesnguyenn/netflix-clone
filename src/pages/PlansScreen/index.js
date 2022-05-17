@@ -14,11 +14,13 @@ import { db } from '../../firebaseConfig';
 import { selectUser } from '../../redux/selectors';
 import './PlansScreen.css';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 function PlansScreen() {
     const [products, setProducts] = useState([]);
     const user = useSelector(selectUser);
     const [subscription, setSubscription] = useState(null);
-    console.log('🚀 ~ subscription', subscription);
 
     useEffect(() => {
         const customerCol = collection(db, 'customers');
@@ -60,6 +62,7 @@ function PlansScreen() {
     }, []);
 
     const loadCheckout = async (priceId) => {
+        const id = toast.loading('Please wait...');
         const collectionRef = collection(db, 'customers');
         const docs = doc(collectionRef, user.uid);
 
@@ -86,6 +89,11 @@ function PlansScreen() {
                         'You can use test card number to test : 4242-4242-4242-4242. ExpDate: 04/24. CVV: 424 . Nameofcard: ABC'
                     )
                 ) {
+                    toast.update(id, {
+                        render: 'Redirecting you to billing...',
+                        type: 'success',
+                        isLoading: false,
+                    });
                     stripe.redirectToCheckout({ sessionId });
                 }
             }
@@ -130,6 +138,7 @@ function PlansScreen() {
                     </div>
                 );
             })}
+            <ToastContainer />
         </div>
     );
 }

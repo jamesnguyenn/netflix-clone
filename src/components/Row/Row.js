@@ -5,6 +5,8 @@ import './Row.css';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -51,23 +53,27 @@ function Row({ title, fetchURL, isLargeRow, onClick }) {
                                       className="row__slide__item"
                                       key={movie.id}
                                   >
-                                      <img
-                                          onClick={() => onClick(movie)}
-                                          className={`row__poster ${
-                                              isLargeRow && 'row__posterLarge'
-                                          }`}
-                                          src={`${image_url}${
-                                              isLargeRow
-                                                  ? movie.poster_path
-                                                  : movie.backdrop_path
-                                          }`}
-                                          alt={movie.name}
-                                      ></img>
+                                      <>
+                                          <img
+                                              onClick={() => onClick(movie)}
+                                              className={`row__poster ${
+                                                  isLargeRow &&
+                                                  'row__posterLarge'
+                                              }`}
+                                              src={`${image_url}${
+                                                  isLargeRow
+                                                      ? movie.poster_path
+                                                      : movie.backdrop_path
+                                              }`}
+                                              alt={movie.name}
+                                          ></img>
+                                      </>
                                   </SwiperSlide>
                               );
                           })}
                 </div>
             </Swiper>
+            <ToastContainer />
         </div>
     );
 }

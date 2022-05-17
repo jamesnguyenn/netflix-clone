@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -8,6 +8,8 @@ import { auth } from '../../firebaseConfig';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+
+import { toast } from 'react-toastify';
 
 const schemaValidations = Yup.object({
     email: Yup.string()
@@ -44,26 +46,36 @@ function SignUpScreen() {
     const signUp = async (e) => {
         e.preventDefault();
         try {
-            const user = await createUserWithEmailAndPassword(
-                auth,
-                emailRef,
-                passwordRef
-            );
+            await createUserWithEmailAndPassword(auth, emailRef, passwordRef);
         } catch (error) {
-            alert(error.message);
+            toast.error(error.message, {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     };
 
     const signIn = async (value) => {
-        console.log('🚀 ~ value', value);
         try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                value.email,
-                value.password
-            );
+            await signInWithEmailAndPassword(auth, value.email, value.password);
         } catch (error) {
-            alert(error.message);
+            toast.error(
+                'Login not successfully !. Try again later or please contact customer services!',
+                {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                }
+            );
         }
     };
 
@@ -102,7 +114,9 @@ function SignUpScreen() {
                 )}
                 <button type="submit">Sign In</button>
                 <h4>
-                    <span className="signupScreen__gray">New to Netflix?</span>
+                    <span className="signupScreen__gray">
+                        New member of Netflix?
+                    </span>
                     <span className="signupScreen__link" onClick={signUp}>
                         Sign Up now.
                     </span>
